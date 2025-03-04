@@ -1,38 +1,119 @@
+/* Signup Form Container */
 .signupParentDiv {
-    border: 1px solid black;
-    width: max-content;
-    padding: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Heading Styling */
+.signupParentDiv h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #002f34;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Label Styling */
+.signupParentDiv label {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  color: #002f34;
+  margin-bottom: 0.5rem;
+}
+
+/* Input Fields */
+.signupParentDiv .input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease-in-out;
+}
+
+.signupParentDiv .input:focus {
+  outline: none;
+  border-color: #007782;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 119, 130, 0.2);
+}
+
+/* Button Styling */
+.signupParentDiv button {
+  width: 100%;
+  padding: 12px;
+  background-color: #002f34;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+.signupParentDiv button:hover {
+  background-color: #ffffff;
+  color: #002f34;
+  border: 2px solid #002f34;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Disabled Button Styling */
+.signupParentDiv button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  border: none;
+}
+
+/* Link Styling */
+.signupParentDiv a {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #002f34;
+  margin-top: 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.signupParentDiv a:hover {
+  color: #007782;
+  text-decoration: underline;
+}
+
+/* Error Message */
+.error {
+  font-size: 0.875rem;
+  color: #d9534f;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .signupParentDiv {
+    width: 95%;
+    padding: 2rem;
   }
-  
-  .signupParentDiv .input {
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    outline-color: transparent;
-  }
-  
-  .signupParentDiv button {
-    width: 100%;
-    height: 48px;
-    /* border-color: transparent; */
-    background-color: #002f34;
-    color: whitesmoke;
-    font-weight: 900;
-  }
-  .signupParentDiv button:hover {
-    background-color: white;
-    color: #002f34;
-    border: 2px solid #002f34;
-  }
-  
-  .signupParentDiv a {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
+}

@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext } from "react";
+import "./Header.css";
+import { useNavigate } from "react-router-dom";
+import OlxLogo from "../../assets/OlxLogo";
+import Search from "../../assets/Search";
+import Arrow from "../../assets/Arrow";
+import SellButton from "../../assets/SellButton";
+import SellButtonPlus from "../../assets/SellButtonPlus";
+import { AuthContext } from "../../store/Context";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/config";
+import { toast } from "react-toastify";
 
-import './Header.css';
-import OlxLogo from '../../assets/OlxLogo';
-import Search from '../../assets/Search';
-import Arrow from '../../assets/Arrow';
-import SellButton from '../../assets/SellButton';
-import SellButtonPlus from '../../assets/SellButtonPlus';
 function Header() {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  function logOut() {
+    signOut(auth);
+    toast.success("Logout Successfully")
+    navigate("/login");
+  }
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -34,17 +47,38 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+          <span>
+            {user ? (
+              `Welcome ${user.displayName}`
+            ) : (
+              <span
+                style={{ cursor: "pointer", padding: "10px" }}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </span>
+            )}
+          </span>
           <hr />
         </div>
-
-        <div className="sellMenu">
-          <SellButton></SellButton>
-          <div className="sellMenuContent">
-            <SellButtonPlus></SellButtonPlus>
-            <span>SELL</span>
-          </div>
-        </div>
+        {user && (
+          <>
+            <span onClick={logOut} style={{ cursor: "pointer" }}>
+              Logout
+            </span>
+            <div className="sellMenu">
+              <SellButton></SellButton>
+              <div
+                className="sellMenuContent"
+                onClick={() => navigate("/sell")}
+                style={{ cursor: "pointer" }}
+              >
+                <SellButtonPlus />
+                <span>SELL</span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -94,9 +94,6 @@
   margin-right: 5px;
 }
 
-.language svg {
-}
-
 .span {
   text-decoration: none;
   font-size: 16px;
@@ -119,6 +116,7 @@
 .sellMenu {
   position: relative;
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .sellMenu .all {
@@ -161,4 +159,16 @@
   .sellMenu {
     display: none;
   }
+}
+.loginPage {
+  display: flex;
+  align-items: center;
+  min-width: 80px; /* Adjust this as needed */
+  justify-content: center; /* Centers the login button */
+}
+
+.loginPage span {
+  cursor: pointer;
+  padding: 10px;
+  white-space: nowrap;
 }
