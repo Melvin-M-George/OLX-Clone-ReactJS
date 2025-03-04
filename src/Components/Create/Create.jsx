@@ -1,15 +1,14 @@
-import React, { Fragment, useContext, useState } from 'react';
-import './Create.css';
-import Header from '../Header/Header';
+import React, { useContext, useState } from "react";
+import "./Create.css";
+import Header from "../Header/Header";
 import { db } from "../../firebase/config";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { AuthContext } from '../../store/Context';
-import { useNavigate } from 'react-router-dom';
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../store/Context";
+import {toast} from 'react-toastify'
 
 const Create = () => {
-
-  const { user } = useContext(AuthContext);
+const {user} = useContext(AuthContext)
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -22,7 +21,7 @@ const Create = () => {
     if (e.target.files.length > 0) {
       setImage(e.target.files[0]);
     }
-  }
+  };
 
   const uploadImageToCloudinary = async () => {
     const formData = new FormData();
@@ -50,11 +49,11 @@ const Create = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     console.log("Submitting form");
 
     if (!image) {
-      toast.error("Please upload an image");
+      toast.error("Please upload an image.");
       return;
     }
 
@@ -63,8 +62,8 @@ const Create = () => {
       const imageUrl = await uploadImageToCloudinary();
       console.log("Image URL:", imageUrl);
       if (!imageUrl) {
-        toast.error("Image upload failed. Please try again");
-        setIsSubmitting(false);
+        toast.error("Image upload failed. Please try again.");
+        setIsSubmitting(false); 
         return;
       }
 
@@ -74,87 +73,75 @@ const Create = () => {
         category,
         price,
         imageUrl,
-        userId: user.uid,
+        userId:user.uid,
         createdAt: serverTimestamp(),
-      })
+      });
       toast.success("Product added successfully");
       navigate("/");
     } catch (error) {
-      console.error("Error addding product:", error);
+      console.error("Error adding product:", error);
       alert("Something went wrong!");
     } finally {
       setIsSubmitting(false);
     }
-
-
-
   };
 
-
-
   return (
-    <Fragment>
+    <>
       <Header />
-      <card>
-        <div className="centerDiv">
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name</label>
-            <br />
-            <input
-              className="input"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              id="name"
-              placeholder='Enter product name'
-              required
+      <div className="centerDiv">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Name</label>
+          <input
+            className="input"
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter product name"
+            required
+          />
+
+          <label htmlFor="category">Category</label>
+          <input
+            className="input"
+            type="text"
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Enter product category"
+            required
+          />
+
+          <label htmlFor="price">Price</label>
+          <input
+            className="input"
+            type="number"
+            id="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Enter price"
+            required
+          />
+
+          <label htmlFor="image">Upload Image</label>
+          <input type="file" id="image" onChange={handleImageChange} />
+
+          {image && (
+            <img
+              alt="Preview"
+              width="200"
+              height="200"
+              src={URL.createObjectURL(image)}
             />
-            <br />
-            <label htmlFor="category">Category</label>
-            <br />
-            <input
-              className="input"
-              type="text"
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Enter product category"
-              required
-            />
+          )}
 
-            <br />
-            <label htmlFor="price">Price</label>
-            <br />
-            <input
-              className="input"
-              type="number"
-              id="price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="Enter price"
-              required
-            />
-            <br />
-
-            <label htmlFor="image">Upload Image</label>
-            <input type="file" id="image" onChange={handleImageChange} />
-
-            {image && (
-              <img
-                alt="Preview"
-                width="200"
-                height="200"
-                src={URL.createObjectURL(image)}
-              />
-            )}
-
-            <button type="submit" className="uploadBtn" disabled={isSubmitting}>
-              {isSubmitting ? "Uploading..." : "Upload and Submit"}
-            </button>
-          </form>
-        </div>
-      </card>
-    </Fragment>
+          <button type="submit" className="uploadBtn" disabled={isSubmitting}>
+            {isSubmitting ? "Uploading..." : "Upload and Submit"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

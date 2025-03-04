@@ -1,21 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './View.css';
-import {PostContext} from "../../store/PostContext";
-import {doc, getDoc} from "firebase/firestore";
-import {db} from "../../firebase/config";
+import { PostContext } from '../../store/PostContext';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from '../../firebase/config';
 
 function View() {
-
-  const [userDetails, setUserDetails] = useState();
+  const [userDetails,setUserDetails] = useState();
   const {postDetails} = useContext(PostContext);
   useEffect(() => {
     async function fetchUserDetails() {
-      if (!postDetails?.userId) return; 
+      if (!postDetails?.userId) return;
   
       const userDocRef = doc(db, 'users', postDetails.userId);
       
+      
       try {
         const userDocSnap = await getDoc(userDocRef);
+        
         if (userDocSnap.exists()) {
           setUserDetails(userDocSnap.data());
         }
@@ -26,7 +27,6 @@ function View() {
   
     fetchUserDetails();
   }, [postDetails]);  
-
 
   return (
     <div className="viewParentDiv">

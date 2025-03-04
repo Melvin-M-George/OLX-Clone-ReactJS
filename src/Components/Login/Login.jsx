@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 import {FirebaseContext} from '../../store/Context'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import Logo from "/src/olx-logo.png";
+import Logo from "/Images/olx-logo.png";
 import './Login.css';
 import {toast} from 'react-toastify'
 
@@ -85,7 +85,7 @@ function Login() {
           <br />
           <button>Login</button>
         </form>
-        <a style={{cursor:'pointer'}} onClick={()=>navigate('/signup')}>Signup</a>
+        <a style={{cursor:'pointer'}} onClick={()=>navigate('/signup')}>New here? Signup</a>
       </div>
     </div>
   );
